@@ -29,9 +29,19 @@ namespace IAADL_App
             try
             {
                 // load the application configuration.
-                application.LoadApplicationConfiguration(false).Wait();
+                var installedConfigPath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.CommonApplicationData), @"IAADL\App.Config.xml");
+                if (File.Exists(installedConfigPath))
+                {
+                    application.LoadApplicationConfiguration(installedConfigPath, false).Wait();
+                }
+                else
+                {
+                    application.LoadApplicationConfiguration(false).Wait();
+                }
+
                 var logFilePath = application.ApplicationConfiguration.TraceConfiguration.OutputFilePath;
-                if(!Path.IsPathRooted(logFilePath))
+                if (!Path.IsPathRooted(logFilePath))
                 {
                     application.ApplicationConfiguration.TraceConfiguration.OutputFilePath = Path.Combine(Directory.GetCurrentDirectory(), logFilePath);
                 }

@@ -258,10 +258,17 @@ namespace IAADL_App
                 preferencesBTN.Enabled = true;
                 if (itemsTV.SelectedNode.Tag == null)
                 {
+                    newToolStripMenuItem1.Enabled = true;
+                    editToolStripMenuItem.Enabled = false;
+                    deleteToolStripMenuItem.Enabled = false;
                     return;
                 }
                 if (itemsTV.SelectedNode.Tag.GetType() == typeof(GroupLog))
                 {
+                    newToolStripMenuItem1.Enabled = true;
+                    editToolStripMenuItem.Enabled = true;
+                    deleteToolStripMenuItem.Enabled = true;
+
                     GroupLog selectedGroup = (GroupLog)itemsTV.SelectedNode.Tag;
                     newItemBTN.Enabled = true;
                     newGroupBTN.Enabled = false;
@@ -289,13 +296,23 @@ namespace IAADL_App
                         stopLoggingBTN.Enabled = false;
                     }
                 }
-                else
+                else if (itemsTV.SelectedNode.Tag.GetType() == typeof(ServerLog))
                 {
+                    newToolStripMenuItem1.Enabled = true;
+                    editToolStripMenuItem.Enabled = true;
+                    deleteToolStripMenuItem.Enabled = true;
+
                     startLoggingBTN.Enabled = false;
                     pauseLoggingBTN.Enabled = false;
                     stopLoggingBTN.Enabled = false;
                     newGroupBTN.Enabled = true;
                     newItemBTN.Enabled = false;
+                }
+                else if (itemsTV.SelectedNode.Tag.GetType() == typeof(ItemLog))
+                {
+                    newToolStripMenuItem1.Enabled = false;
+                    editToolStripMenuItem.Enabled = true;
+                    deleteToolStripMenuItem.Enabled = true;
                 }
             }
             catch (Exception exception)
@@ -324,7 +341,7 @@ namespace IAADL_App
                 }
 
                 newGroup.Server.GroupLogs.Add(newGroup);
-                newGroup.ItemAdded += itemAdded;
+                newGroup.ItemAction += itemAction;
 
                 // add node.
                 TreeNode groupNode = new TreeNode(newGroup.Name);
@@ -469,7 +486,7 @@ namespace IAADL_App
             newGroup.LogFileSettings = groupConf.LogFileSettings;
             newGroup.Server = server;
             newGroup.Server.GroupLogs.Add(newGroup);
-            newGroup.ItemAdded += itemAdded;
+            newGroup.ItemAction += itemAction;
 
             // add node.
             TreeNode groupNode = new TreeNode(newGroup.Name);
@@ -514,7 +531,7 @@ namespace IAADL_App
             return null;
         }
 
-        private void itemAdded(object sender, ItemEventArgs e)
+        private void itemAction(object sender, ItemEventArgs e)
         {
             try
             {
@@ -528,6 +545,29 @@ namespace IAADL_App
                 {
                     groupNode.Nodes.Add(e.Name).Tag = e.Item;
                     e.Item.MI.Notification += Item_Notification;
+
+                    // add the attribute name/value to the list view.
+                    ListViewItem item = new ListViewItem(e.Item.MI.ClientHandle.ToString());
+                    item.UseItemStyleForSubItems = false;
+
+                    item.SubItems.Add(e.Item.MI.DisplayName);
+                    item.SubItems.Add(String.Empty);
+                    item.SubItems.Add(String.Empty);
+                    item.SubItems.Add(String.Empty);
+                    item.SubItems.Add(String.Empty);
+                    item.SubItems.Add(String.Empty);
+                    e.Item.Handle = item;
+
+                    item.Tag = e.Item;
+
+                    var group = (GroupLog) groupNode.Tag;
+
+                    ((MonitoredItemsListCTRL) group.Handle).MonitoredItemsLV.Items.Add(item);
+                }
+                else if(e.Action == ItemEventArgs.ItemActionEnum.Deleted)
+                {
+                    var itemLV = (ListViewItem)e.Item.Handle;
+                    itemLV.Remove();
                 }
             }
             catch (Exception exception)
@@ -538,19 +578,39 @@ namespace IAADL_App
 
         private void Item_Notification(MonitoredItem monitoredItem, MonitoredItemNotificationEventArgs e)
         {
-            if(itemsTV.InvokeRequired)
+            var itemLog = (ItemLog)monitoredItem.Handle;
+            var group = itemLog.Group;
+            var itemsListCTRL = (MonitoredItemsListCTRL)group.Handle;
+
+            if (itemsListCTRL.MonitoredItemsLV.InvokeRequired)
             {
-                itemsTV.BeginInvoke(new MonitoredItemNotificationEventHandler(Item_Notification), monitoredItem, e);
+                itemsListCTRL.MonitoredItemsLV.BeginInvoke(new MonitoredItemNotificationEventHandler(Item_Notification), monitoredItem, e);
             }
             else
             {
-                var itemNode = getNodeFromTag(itemsTV.Nodes[0], monitoredItem.Handle);
-                if (itemNode == null)
+                var itemLV = (ListViewItem)itemLog.Handle;
+                if (itemLV == null)
                 {
                     return;
                 }
-                string value = ((ItemLog)monitoredItem.Handle).Value;
-                itemNode.Text = value;
+                var notification = (MonitoredItemNotification)monitoredItem.LastValue;
+                itemLV.SubItems[2].Text = Utils.Format("{0}", notification.Value.WrappedValue);
+                itemLV.SubItems[3].Text = Utils.Format("{0}", notification.Value.StatusCode);
+                if (notification.Value.StatusCode.ToString() == "Good")
+                {
+                    itemLV.SubItems[3].ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    itemLV.SubItems[3].ForeColor = System.Drawing.Color.Red;
+                }
+                itemLV.SubItems[5].Text = Utils.Format("{0:dd/MM/yyyy}", notification.Value.SourceTimestamp.ToLocalTime());
+                itemLV.SubItems[4].Text = Utils.Format("{0:HH:mm:ss}", notification.Value.SourceTimestamp.ToLocalTime());
+
+                if (ServiceResult.IsBad(monitoredItem.Status.Error))
+                {
+                    itemLV.SubItems[6].Text = monitoredItem.Status.Error.StatusCode.ToString();
+                }
             }
 
         }
@@ -606,9 +666,6 @@ namespace IAADL_App
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            newToolStripMenuItem1.Enabled = true;
-            editToolStripMenuItem.Enabled = true;
-            deleteToolStripMenuItem.Enabled = true;
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -677,6 +734,7 @@ namespace IAADL_App
                 var selectedNode = itemsTV.SelectedNode;
                 if (selectedNode == null || selectedNode.Tag == null)
                 {
+                    newServerBTN_Click(sender, e);
                     return;
                 }
 
@@ -706,7 +764,8 @@ namespace IAADL_App
         {
             try
             {
-                System.Diagnostics.Process.Start(@"manuel.pdf");
+                System.Diagnostics.Process.Start(Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.CommonApplicationData), @"manuel.pdf"));
             }
             catch (Exception exception)
             {

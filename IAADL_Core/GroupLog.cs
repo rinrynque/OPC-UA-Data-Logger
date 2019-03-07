@@ -40,10 +40,10 @@ namespace IAADL_Core
         /// <summary>
         /// Raised after successfully adding a Monitored Item to the group.
         /// </summary>
-        public event ItemEventHandler ItemAdded
+        public event ItemEventHandler ItemAction
         {
-            add { m_itemAddedEvent += value; }
-            remove { m_itemAddedEvent -= value; }
+            add { m_itemActionEvent += value; }
+            remove { m_itemActionEvent -= value; }
         }
 
         private Subscription m_subscription;
@@ -56,7 +56,7 @@ namespace IAADL_Core
         private bool m_isLoggingPaused = false;
         private System.Timers.Timer m_LogDurationTimer;
         private System.Timers.Timer m_LogLineTimer;
-        private ItemEventHandler m_itemAddedEvent;
+        private ItemEventHandler m_itemActionEvent;
         private object m_handle;
 
         public void StartLogging()
@@ -198,16 +198,16 @@ namespace IAADL_Core
             monitoredItem.Notification += m_MonitoredItem_Notification;
 
             m_subscription.AddItem(monitoredItem);
-            var itemLog = new ItemLog(monitoredItem);
+            var itemLog = new ItemLog(monitoredItem, this);
             monitoredItem.Handle = itemLog;
 
             m_subscription.ApplyChanges();
             m_items.Add(itemLog);
 
-            if (m_itemAddedEvent != null)
+            if (m_itemActionEvent != null)
             {
                 ItemEventArgs e = new ItemEventArgs(ItemEventArgs.ItemActionEnum.Created, monitoredItem.DisplayName, itemLog);
-                m_itemAddedEvent(this, e);
+                m_itemActionEvent(this, e);
             }
             return itemLog;
         }
@@ -266,7 +266,7 @@ namespace IAADL_Core
         public void DeleteMonitoredItem(ItemLog item)
         {
             m_items.Remove(item);
-            //item.MI.Notification -= m_MonitoredItem_Notification;
+            item.MI.Notification -= m_MonitoredItem_Notification;
 
             if (m_subscription != null)
             {
@@ -282,6 +282,12 @@ namespace IAADL_Core
                 {
                     //itemToDelete.SubItems[6].Text = item.Status.Error.StatusCode.ToString();
                 }
+            }
+
+            if (m_itemActionEvent != null)
+            {
+                ItemEventArgs e = new ItemEventArgs(ItemEventArgs.ItemActionEnum.Deleted, "", item);
+                m_itemActionEvent(this, e);
             }
         }
 

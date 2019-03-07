@@ -29,15 +29,21 @@ namespace IAADL_Service
 
             try
             {
-                // load the application configuration.
-                application.LoadApplicationConfiguration(@"C:\Config.xml", false).Wait();// (false).Wait();
+                var installedConfigPath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.CommonApplicationData), @"IAADL\Service.Config.xml");
+                if (File.Exists(installedConfigPath))
+                {
+                    application.LoadApplicationConfiguration(installedConfigPath, false).Wait();
+                }
+                else
+                {
+                    application.LoadApplicationConfiguration(false).Wait();
+                }
 
                 // check the application certificate.
                 application.CheckApplicationInstanceCertificate(false, 0).Wait();
                 //application.ApplicationConfiguration = new ApplicationConfiguration();
                 m_configuration = application.ApplicationConfiguration;
-
-                loadConfigFile(@"C:\lel.json");
             }
             catch (Exception e)
             {
