@@ -35,6 +35,7 @@ namespace IAADL_Core
         public int LogRate { get; set; }
         public LogFileConf LogFileSettings { get; set; }
         internal List<ItemLog> Items { get => m_items; set => m_items = value; }
+        public object Handle { get => m_handle; set => m_handle = value; }
 
         /// <summary>
         /// Raised after successfully adding a Monitored Item to the group.
@@ -56,6 +57,7 @@ namespace IAADL_Core
         private System.Timers.Timer m_LogDurationTimer;
         private System.Timers.Timer m_LogLineTimer;
         private ItemEventHandler m_itemAddedEvent;
+        private object m_handle;
 
         public void StartLogging()
         {
@@ -103,9 +105,9 @@ namespace IAADL_Core
             m_LogLineTimer.Enabled = true;
         }
 
-        public void StopLogging()
+        public void StopLogging(bool cycle = false)
         {
-            if(m_LogDurationTimer != null)
+            if(m_LogDurationTimer != null && !cycle)
             {
                 m_LogDurationTimer.Dispose();
             }
@@ -129,7 +131,7 @@ namespace IAADL_Core
 
         private void CycleLogFile(Object source, System.Timers.ElapsedEventArgs e)
         {
-            StopLogging();
+            StopLogging(true);
             StartLogging();
         }
         private void LogLine(Object source, System.Timers.ElapsedEventArgs e)

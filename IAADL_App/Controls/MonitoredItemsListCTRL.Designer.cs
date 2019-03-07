@@ -60,7 +60,7 @@
             // MonitoredItemIdCH
             // 
             this.MonitoredItemIdCH.Text = "ID";
-            this.MonitoredItemIdCH.Width = 25;
+            this.MonitoredItemIdCH.Width = 40;
             // 
             // VariableNameCH
             // 

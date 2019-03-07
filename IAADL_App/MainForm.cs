@@ -41,6 +41,7 @@ using IAADL_App.Forms;
 using System.Linq;
 using System.Threading.Tasks;
 using IAADL_Core;
+using IAADL_App.Controls;
 
 namespace IAADL_App
 {
@@ -266,8 +267,9 @@ namespace IAADL_App
                     newGroupBTN.Enabled = false;
 
                     splitContainer1.Panel2.Controls.Clear();
-                    //splitContainer1.Panel2.Controls.Add(selectedGroup.MonitoredItemsList);
-                    //selectedGroup.MonitoredItemsList.Dock = DockStyle.Fill;
+                    var listCtrl = (MonitoredItemsListCTRL)selectedGroup.Handle;
+                    splitContainer1.Panel2.Controls.Add(listCtrl);
+                    listCtrl.Dock = DockStyle.Fill;
                     if (selectedGroup.IsLogging && !selectedGroup.IsLoggingPaused)
                     {
                         startLoggingBTN.Enabled = false;
@@ -330,6 +332,8 @@ namespace IAADL_App
                 selectedNode.Nodes.Add(groupNode);
                 selectedNode.Expand();
 
+                MonitoredItemsListCTRL listCTRL = new MonitoredItemsListCTRL();
+                newGroup.Handle = listCTRL;
             }
             catch (Exception exception)
             {
@@ -472,8 +476,10 @@ namespace IAADL_App
             groupNode.Tag = newGroup;
             serverNode.Nodes.Add(groupNode);
             serverNode.Expand();
+            MonitoredItemsListCTRL listCTRL = new MonitoredItemsListCTRL();
+            newGroup.Handle = listCTRL;
 
-            foreach(ItemConf itemConf in groupConf.ItemConfs)
+            foreach (ItemConf itemConf in groupConf.ItemConfs)
             {
                 addItem(itemConf, newGroup);
             }
