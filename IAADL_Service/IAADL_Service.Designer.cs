@@ -1,6 +1,6 @@
 ﻿namespace IAADL_Service
 {
-    partial class Service1
+    partial class IAADL_Service
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // IAADL_Service
+            // 
+            this.ServiceName = "IAADL_Service";
+
         }
 
         #endregion

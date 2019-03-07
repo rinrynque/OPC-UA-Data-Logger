@@ -17,7 +17,7 @@ namespace IAADL_Service
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new IAADL_Service()
             };
             ServiceBase.Run(ServicesToRun);
         }
