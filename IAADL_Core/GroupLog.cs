@@ -34,7 +34,7 @@ namespace IAADL_Core
         public int UpdatePeriod { get; set; }
         public int LogRate { get; set; }
         public LogFileConf LogFileSettings { get; set; }
-        internal List<MonitoredItem> Items { get => m_items; set => m_items = value; }
+        internal List<ItemLog> Items { get => m_items; set => m_items = value; }
 
         /// <summary>
         /// Raised after successfully adding a Monitored Item to the group.
@@ -46,7 +46,7 @@ namespace IAADL_Core
         }
 
         private Subscription m_subscription;
-        private List<MonitoredItem> m_items = new List<MonitoredItem>();
+        private List<ItemLog> m_items = new List<ItemLog>();
         private MonitoredItemNotificationEventHandler m_MonitoredItem_Notification;
         private string m_filePath = "out.csv";
         private CsvWriter m_csvWriter;
@@ -91,9 +91,9 @@ namespace IAADL_Core
             m_csvWriter.WriteField("Date");
             m_csvWriter.WriteField("Time");
             m_csvWriter.WriteField("Errors");
-            foreach (MonitoredItem item in m_items)
+            foreach (ItemLog item in m_items)
             {
-                m_csvWriter.WriteField(item.DisplayName);
+                m_csvWriter.WriteField(item.MI.DisplayName);
             }
             m_csvWriter.NextRecord();
             m_isLogging = true;
@@ -140,13 +140,13 @@ namespace IAADL_Core
                 m_csvWriter.WriteField(Utils.Format("{0:dd/MM/yyyy}", now));
                 m_csvWriter.WriteField(Utils.Format("{0:HH:mm:ss}", now));
                 m_csvWriter.WriteField("");
-                foreach (MonitoredItem item in m_items)
+                foreach (ItemLog item in m_items)
                 {
-                    if(item.LastValue == null)
+                    if(item.MI.LastValue == null)
                     {
                         continue;
                     }
-                    string value = ((MonitoredItemNotification)item.LastValue).Value.ToString();
+                    string value = ((MonitoredItemNotification)item.MI.LastValue).Value.ToString();
                     if (value == "True")
                     {
                         value = "1";
@@ -165,7 +165,7 @@ namespace IAADL_Core
         /// <summary>
         /// Creates the monitored item.
         /// </summary>
-        public MonitoredItem CreateMonitoredItem(NodeId nodeId, string displayName)
+        public ItemLog CreateMonitoredItem(NodeId nodeId, string displayName)
         {
             if (m_subscription == null)
             {
@@ -189,24 +189,25 @@ namespace IAADL_Core
             monitoredItem.AttributeId = Attributes.Value;
             monitoredItem.DisplayName = displayName;
             monitoredItem.MonitoringMode = MonitoringMode.Reporting;
-            monitoredItem.SamplingInterval = 1000;
+            monitoredItem.SamplingInterval = UpdatePeriod;
             monitoredItem.QueueSize = 0;
             monitoredItem.DiscardOldest = true;
 
             monitoredItem.Notification += m_MonitoredItem_Notification;
 
             m_subscription.AddItem(monitoredItem);
+            var itemLog = new ItemLog(monitoredItem);
+            monitoredItem.Handle = itemLog;
 
+            m_subscription.ApplyChanges();
+            m_items.Add(itemLog);
 
-            if(m_itemAddedEvent != null)
+            if (m_itemAddedEvent != null)
             {
-                ItemEventArgs e = new ItemEventArgs(ItemEventArgs.ItemActionEnum.Created, monitoredItem.DisplayName, monitoredItem);
+                ItemEventArgs e = new ItemEventArgs(ItemEventArgs.ItemActionEnum.Created, monitoredItem.DisplayName, itemLog);
                 m_itemAddedEvent(this, e);
             }
-            m_subscription.ApplyChanges();
-            m_items.Add(monitoredItem);
-
-            return monitoredItem;
+            return itemLog;
         }
 
         /// <summary>
@@ -216,7 +217,40 @@ namespace IAADL_Core
         {
             try
             {
-                monitoredItem.SaveValueInCache(e.NotificationValue);
+                ItemLog itemLog = (ItemLog)monitoredItem.Handle;
+                if (Server.Connection.Session == null)
+                {
+                    return;
+                }
+
+                MonitoredItemNotification notification = e.NotificationValue as MonitoredItemNotification;
+
+                if (notification == null)
+                {
+                    return;
+                }
+
+                if(m_items.Count()>1)
+                {
+                    if(m_items[1] == itemLog)
+                    {
+
+                    }
+                    if(itemLog == null)
+                    {
+
+                    }
+                }
+
+                itemLog.Value = Utils.Format("{0}", notification.Value.WrappedValue);
+                //item.SubItems[3].Text = Utils.Format("{0}", notification.Value.StatusCode);
+                //item.SubItems[5].Text = Utils.Format("{0:dd/MM/yyyy}", notification.Value.SourceTimestamp.ToLocalTime());
+                //item.SubItems[4].Text = Utils.Format("{0:HH:mm:ss}", notification.Value.SourceTimestamp.ToLocalTime());
+
+                if (ServiceResult.IsBad(monitoredItem.Status.Error))
+                {
+                    //item.SubItems[6].Text = monitoredItem.Status.Error.StatusCode.ToString();
+                }
             }
             catch
             {
@@ -227,14 +261,14 @@ namespace IAADL_Core
         /// <summary>
         /// Handles the Click event of the Monitoring_DeleteMI control.
         /// </summary>
-        public void DeleteMonitoredItem(MonitoredItem item)
+        public void DeleteMonitoredItem(ItemLog item)
         {
             m_items.Remove(item);
-            item.Notification -= m_MonitoredItem_Notification;
+            //item.MI.Notification -= m_MonitoredItem_Notification;
 
             if (m_subscription != null)
             {
-                m_subscription.RemoveItem(item);
+                m_subscription.RemoveItem(item.MI);
             }
 
             // update the server.
@@ -242,7 +276,7 @@ namespace IAADL_Core
             {
                 m_subscription.ApplyChanges();
 
-                if (ServiceResult.IsBad(item.Status.Error))
+                if (ServiceResult.IsBad(item.MI.Status.Error))
                 {
                     //itemToDelete.SubItems[6].Text = item.Status.Error.StatusCode.ToString();
                 }
@@ -256,7 +290,7 @@ namespace IAADL_Core
     /// </summary>
     public class ItemEventArgs : EventArgs
     {
-        internal ItemEventArgs(ItemActionEnum action, string name, MonitoredItem item)
+        internal ItemEventArgs(ItemActionEnum action, string name, ItemLog item)
         {
             m_action = action;
             m_name = name;
@@ -265,11 +299,11 @@ namespace IAADL_Core
         public enum ItemActionEnum { Deleted, Renamed, Created }
         private ItemActionEnum m_action;
         private string m_name;
-        private MonitoredItem m_item;
+        private ItemLog m_item;
 
         public ItemActionEnum Action { get => m_action; set => m_action = value; }
         public string Name { get => m_name; set => m_name = value; }
-        public MonitoredItem Item { get => m_item; set => m_item = value; }
+        public ItemLog Item { get => m_item; set => m_item = value; }
     }
     public delegate void ItemEventHandler(Object sender, ItemEventArgs e);
 }

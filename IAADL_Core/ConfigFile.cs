@@ -74,9 +74,9 @@ namespace IAADL_Core
             LogFileSettings = group.LogFileSettings;
             UpdatePeriod = group.UpdatePeriod;
             LogRate = group.LogRate;
-            foreach (MonitoredItem item in group.Items)
+            foreach (ItemLog item in group.Items)
             {
-                ItemConf itemConf = new ItemConf(item);
+                ItemConf itemConf = new ItemConf(item.MI);
                 ItemConfs.Add(itemConf);
             }
         }

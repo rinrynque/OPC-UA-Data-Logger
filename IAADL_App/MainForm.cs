@@ -107,6 +107,12 @@ namespace IAADL_App
                 {
                     //var configPath = Path.Combine(Directory.GetCurrentDirectory(), "configuration.json");
                     //m_serviceConf.SaveConf(configPath);
+
+                    foreach(var server in m_servers)
+                    {
+                        server.Connection.Disconnect();
+                    }
+
                     Application.Exit();
                 }
                 else
@@ -515,7 +521,7 @@ namespace IAADL_App
                 if (e.Action == ItemEventArgs.ItemActionEnum.Created)
                 {
                     groupNode.Nodes.Add(e.Name).Tag = e.Item;
-                    e.Item.Notification += Item_Notification;
+                    e.Item.MI.Notification += Item_Notification;
                 }
             }
             catch (Exception exception)
@@ -532,12 +538,12 @@ namespace IAADL_App
             }
             else
             {
-                var itemNode = getNodeFromTag(itemsTV.Nodes[0], monitoredItem);
-                if (itemNode == null || monitoredItem.LastValue == null)
+                var itemNode = getNodeFromTag(itemsTV.Nodes[0], monitoredItem.Handle);
+                if (itemNode == null)
                 {
                     return;
                 }
-                string value = ((MonitoredItemNotification)monitoredItem.LastValue).Value.ToString();
+                string value = ((ItemLog)monitoredItem.Handle).Value;
                 itemNode.Text = value;
             }
 
@@ -636,12 +642,12 @@ namespace IAADL_App
                     }
                     server.GroupLogs.Remove(group);
                 }
-                else if (selectedNode.Tag.GetType() == typeof(MonitoredItem))
+                else if (selectedNode.Tag.GetType() == typeof(ItemLog))
                 {
                     var group = (GroupLog)selectedNode.Parent.Tag;
-                    var monitoredItem = (MonitoredItem)selectedNode.Tag;
+                    var itemLog = (ItemLog)selectedNode.Tag;
 
-                    group.DeleteMonitoredItem(monitoredItem);
+                    group.DeleteMonitoredItem(itemLog);
                 }
 
                 selectedNode.Remove();
