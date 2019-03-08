@@ -311,7 +311,7 @@ namespace IAADL_App
                 else if (itemsTV.SelectedNode.Tag.GetType() == typeof(ItemLog))
                 {
                     newToolStripMenuItem1.Enabled = false;
-                    editToolStripMenuItem.Enabled = true;
+                    editToolStripMenuItem.Enabled = false;
                     deleteToolStripMenuItem.Enabled = true;
                 }
             }

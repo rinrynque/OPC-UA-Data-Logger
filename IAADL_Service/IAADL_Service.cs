@@ -44,6 +44,12 @@ namespace IAADL_Service
                 application.CheckApplicationInstanceCertificate(false, 0).Wait();
                 //application.ApplicationConfiguration = new ApplicationConfiguration();
                 m_configuration = application.ApplicationConfiguration;
+                var settingsConfigPath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.CommonApplicationData), @"IAADL\Service.Parameters.json");
+                if (File.Exists(settingsConfigPath))
+                {
+                    loadConfigFile(settingsConfigPath);
+                }
             }
             catch (Exception e)
             {
