@@ -16,9 +16,21 @@ namespace IAADL_App.Forms
 {
     public partial class ObjectsForm : Form
     {
+        private System.Windows.Forms.ImageList imageList1;
+
         public ObjectsForm()
         {
             InitializeComponent();
+            imageList1 = new ImageList();
+
+            System.Drawing.Image no_icon =
+               Image.FromFile(@"no-image-dots.png");
+            imageList1.Images.Add("no_icon", no_icon);
+            System.Drawing.Image icon_label =
+               Image.FromFile(@"label_icon.png");
+            imageList1.Images.Add("label_icon", icon_label);
+            BrowseNodesTV.ImageList = imageList1;
+            BrowseNodesTV.ImageList = imageList1;
         }
         private GroupLog m_groupLog;
 
@@ -79,8 +91,15 @@ namespace IAADL_App.Forms
                     // add node.
                     TreeNode child = new TreeNode(Utils.Format("{0}", target));
                     child.Tag = target;
+
                     child.Nodes.Add(new TreeNode());
                     nodes.Add(child);
+
+                    if (target.NodeClass == NodeClass.Variable)
+                    {
+                        child.ImageKey = "label_icon";
+                        child.SelectedImageKey = "label_icon";
+                    }
                 }
             }
             catch (Exception exception)
@@ -112,7 +131,7 @@ namespace IAADL_App.Forms
                 }
 
                 // populate children.
-                PopulateBranch((NodeId)reference.NodeId, e.Node.Nodes).Wait();
+                PopulateBranch((NodeId)reference.NodeId, e.Node.Nodes);
             }
             catch (Exception exception)
             {
@@ -126,6 +145,16 @@ namespace IAADL_App.Forms
         {
             try
             {
+                if (e.Node.ImageKey == "label_icon")
+                {
+                    okBTN.Enabled = true;
+                    addBTN.Enabled = true;
+                }
+                else
+                {
+                    okBTN.Enabled = false;
+                    addBTN.Enabled = false;
+                }
                 // get the source for the node.
                 ReferenceDescription reference = e.Node.Tag as ReferenceDescription;
 

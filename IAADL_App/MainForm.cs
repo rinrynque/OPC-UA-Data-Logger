@@ -188,6 +188,7 @@ namespace IAADL_App
 
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
+                        Cursor.Current = Cursors.WaitCursor;
                         //Get the path of specified file
                         var filePath = openFileDialog.FileName;
                         m_serviceConf.ConfigFilePath = filePath;
@@ -203,11 +204,13 @@ namespace IAADL_App
                             addServer(serverConf);
                         }
                         itemsTV.EndUpdate();
+                        Cursor.Current = Cursors.Default;
                     }
                 }
             }
             catch (Exception exception)
             {
+                Cursor.Current = Cursors.Default;
                 ClientUtils.HandleException(this.Text, exception);
             }
         }
@@ -694,6 +697,7 @@ namespace IAADL_App
                     }
                     server.Connection.Disconnect();
                     //server.Connection.Dispose();
+                    m_servers.Remove(server);
                 }
                 else if (selectedNode.Tag.GetType() == typeof(GroupLog))
                 {
