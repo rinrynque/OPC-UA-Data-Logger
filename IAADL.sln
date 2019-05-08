@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quickstart Library", "UA-.N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UA Server Controls", "UA-.NETStandard\SampleApplications\Samples\ServerControls.Net4\UA Server Controls.csproj", "{80056988-44E7-4EF4-9F59-50BCF215CB03}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "IAADL_Installer", "IAADL_Installer\IAADL_Installer.wixproj", "{5461B76E-68BA-41B0-95B5-184333834077}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -197,6 +199,16 @@ Global
 		{80056988-44E7-4EF4-9F59-50BCF215CB03}.Release|x64.Build.0 = Release|Any CPU
 		{80056988-44E7-4EF4-9F59-50BCF215CB03}.Release|x86.ActiveCfg = Release|Any CPU
 		{80056988-44E7-4EF4-9F59-50BCF215CB03}.Release|x86.Build.0 = Release|Any CPU
+		{5461B76E-68BA-41B0-95B5-184333834077}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Debug|ARM.ActiveCfg = Debug|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Debug|x64.ActiveCfg = Debug|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Debug|x86.ActiveCfg = Debug|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Debug|x86.Build.0 = Debug|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Release|Any CPU.ActiveCfg = Release|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Release|ARM.ActiveCfg = Release|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Release|x64.ActiveCfg = Release|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Release|x86.ActiveCfg = Release|x86
+		{5461B76E-68BA-41B0-95B5-184333834077}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
