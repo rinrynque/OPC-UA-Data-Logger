@@ -6,6 +6,7 @@
         <MediaTemplate EmbedCab="yes" />
         <Feature Id="ProductFeature" Title="IAADL" Level="1">
             <ComponentGroupRef Id="ProductComponents" />
+          <ComponentGroupRef Id="DataComponents" />
             <ComponentGroupRef Id="HeatGenerated" />
             <ComponentRef Id="ApplicationShortcut" />
         </Feature>
@@ -13,11 +14,11 @@
       
       <!-- Les raccourcis menu démarrer -->        
         <DirectoryRef Id="ApplicationProgramsFolder">
-          <Component Id="ApplicationShortcut" Guid="{7151C0D7-D807-431D-A7B0-74022D975444}">
+          <Component Id="ApplicationShortcut" Guid="*">
             <Shortcut Id="ApplicationStartMenuShortcut"
                       Name="IAADL"
                       Description="IAA OPC Data Logger"
-                      Target="[#fil33E793AAB482C6259330FF2A3405ABC4]"
+                      Target="[#FileID_IAADL_App_Executable]"
                       WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
             <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
             <Shortcut Id="UninstallProduct"
@@ -38,25 +39,38 @@
             <Directory Id="ProgramMenuFolder">
               <Directory Id="ApplicationProgramsFolder" Name="IAADL"/>
             </Directory>
+            <Directory Id="CommonAppDataFolder">
+              <Directory Id="DATAFOLDER" Name="IAADL">
+              </Directory>
+            </Directory>
         </Directory>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-          <!--
-          <Component>
-            <File Id='JobServiceEXE' Name='JobService.exe' DiskId='1' Source='JobService.exe'  KeyPath='yes'/>
+          <Component Id="ComponentID_IAADL_App_Executable" Guid="*">
+            <File Id="FileID_IAADL_App_Executable" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_App.exe" />
+          </Component>
+          <Component Guid="e2a3d7a1-3eeb-4f1b-83b3-3c0b1a85a4ec">
+            <File Id='FileID_IAADL_Service_Executable' Name='IAADL_Service.exe' DiskId='1' Source="$(var.HarvestPath)\IAADL_Service.exe"  KeyPath='yes' Vital='yes'/>
             <ServiceInstall
               Id="ServiceInstaller"
               Type="ownProcess"
-              Name="JobService"
-              DisplayName="123 Co. JobService"
-              Description="Monitoring and management Jobs"
-              Start="auto"
-              Account="[SERVICEACCOUNT]"
-              Password="[SERVICEPASSWORD]"
+              Name="IAADL_Service"
+              DisplayName="IAADL Service"
+              Description="Logging of monitored OPC Data"
+              Start="demand"
+              Account="NT AUTHORITY\LocalService"
               ErrorControl="normal"
               />
-          </Component>-->
+            <ServiceControl Id="IAADL_Service" Name="IAADL_Service" Remove="uninstall" Stop="uninstall" Wait="yes" />
+          </Component>
         </ComponentGroup>
+      <ComponentGroup Id="DataComponents" Directory="DATAFOLDER">
+        <Component Guid="866149a7-60c7-48cd-9b44-77474e618f52">
+          <File Id='FileID_IAADL_Service_Config_xml' Name='Service.Config.xml' DiskId='1' Source="..\IAADL_App\IAA_DataLogger.Config.xml"  KeyPath='yes' Vital='yes'/>
+          <File Id='FileID_IAADL_App_Config_xml' Name='App.Config.xml' DiskId='1' Source="..\IAADL_App\IAA_DataLogger.Config.xml"  Vital='yes' />
+        </Component>
+      </ComponentGroup>
+      
     </Fragment>
 </Wix>

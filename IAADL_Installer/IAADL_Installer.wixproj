@@ -40,7 +40,8 @@
     ToolPath="$(WixToolPath)" 
     SuppressFragments="true" 
     SuppressRegistry="true" 
-    SuppressRootDirectory="true" />  
+    SuppressRootDirectory="true"
+	Transforms="WixIgnoreTransform.xslt" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

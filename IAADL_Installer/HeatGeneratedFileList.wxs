@@ -14,29 +14,14 @@
             <Component Id="cmp4D3424098E909F5DFA609ECF27FF5CF8" Guid="*">
                 <File Id="fil38A69E63C88C61761256C89A20A592EB" KeyPath="yes" Source="$(var.HarvestPath)\CsvHelper.xml" />
             </Component>
-            <Component Id="cmpD75078CB58BA7D7318B1E54DC477F565" Guid="*">
-                <File Id="fil33E793AAB482C6259330FF2A3405ABC4" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_App.exe" />
-            </Component>
             <Component Id="cmpEC2A84ECC7514FBE0FC93D5D1A4E257B" Guid="*">
                 <File Id="fil96D5152480EF5B342A32CB0E56B3FE05" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_App.exe.config" />
-            </Component>
-            <Component Id="cmpC27FDB5697B8F0566CE7F4077B9A48A1" Guid="*">
-                <File Id="fil69C6EE3268670A90FDE3FC88CA2E1C64" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_App.pdb" />
             </Component>
             <Component Id="cmp261C4BE69BECC0B0BFD15503D8432605" Guid="*">
                 <File Id="fil0E89FDA25336537F9F35630B0A99CA20" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_Core.dll" />
             </Component>
-            <Component Id="cmp0A278DA8A2FA0AD6C0AD7366C63BC744" Guid="*">
-                <File Id="filAB396E6FD95888B7132268C23DF80E2B" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_Core.pdb" />
-            </Component>
-            <Component Id="cmpC9B0261CB497D0066D8CF3A9F83E0B4F" Guid="*">
-                <File Id="fil652976418BB2728A6E16CC47B9CA8E81" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_Service.exe" />
-            </Component>
             <Component Id="cmpDBB96FECFEC6C1D4B32B6745A860DF73" Guid="*">
                 <File Id="filE4CD42688102009129526C33685E4A66" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_Service.exe.config" />
-            </Component>
-            <Component Id="cmp32E8EC6DB32400BA022B224F2CCF205A" Guid="*">
-                <File Id="filEE5AD5459B4A74301E1C046CC0AAA506" KeyPath="yes" Source="$(var.HarvestPath)\IAADL_Service.pdb" />
             </Component>
             <Component Id="cmp67D5062A3C2AEC75287E862887A3DF61" Guid="*">
                 <File Id="fil7F4F11FD8F2C727B2E0188C5B254557D" KeyPath="yes" Source="$(var.HarvestPath)\IAA_DataLogger.Config.xml" />
@@ -125,9 +110,6 @@
             <Component Id="cmpBC4FC00A26E7D32479D42D3411317FC5" Guid="*">
                 <File Id="fil90A8AAD9FC612906D405476D61CEA3F4" KeyPath="yes" Source="$(var.HarvestPath)\Newtonsoft.Json.dll" />
             </Component>
-            <Component Id="cmp22E746D6F416E29CB766C7D18764B4B9" Guid="*">
-                <File Id="filCDAFB89F0B81C3E6CC5A00DBBB38E11F" KeyPath="yes" Source="$(var.HarvestPath)\Newtonsoft.Json.pdb" />
-            </Component>
             <Component Id="cmp125C379E185231EFADA4CB4301BD0A9E" Guid="*">
                 <File Id="fil3A2F44A7730E98D18E0948B3261DFABD" KeyPath="yes" Source="$(var.HarvestPath)\Newtonsoft.Json.xml" />
             </Component>
@@ -137,47 +119,26 @@
             <Component Id="cmp0181C62AF72C0D6FD32EB8AB33D80211" Guid="*">
                 <File Id="fil939F41040FF2C20FF605C5AE5066BFC8" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Client.dll" />
             </Component>
-            <Component Id="cmp0B6F20721DAFB372BF90A31C7CB2B136" Guid="*">
-                <File Id="filB2F6C08F4B1C9242AFD0D080F4F2676F" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Client.pdb" />
-            </Component>
             <Component Id="cmpF6B54E2EEC1B2D6E15B624C61BE55AB8" Guid="*">
                 <File Id="fil739D5612EE1A6D786456583D035E1E72" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.ClientControls.dll" />
             </Component>
             <Component Id="cmpB88E322C77A9FBFD5741C083E3BAC4AB" Guid="*">
                 <File Id="fil816FD3A300DE035CEB432C538112154F" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.ClientControls.dll.config" />
             </Component>
-            <Component Id="cmp467AA6119661A4F5F4FC7197B5C03140" Guid="*">
-                <File Id="filDC1CF807AE68352078DA9184064C0D5D" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.ClientControls.pdb" />
-            </Component>
             <Component Id="cmp154D08527E5826E7E6C71811C22014E3" Guid="*">
                 <File Id="fil556D10D56893CDEAA3C03120C7C49989" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Configuration.dll" />
-            </Component>
-            <Component Id="cmpF1DF0ED8DDE70DEFDAFF1686D7E23656" Guid="*">
-                <File Id="filE675969E8B4510E28EE03E102ED98449" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Configuration.pdb" />
             </Component>
             <Component Id="cmp5B95664DA7C13ECEA76855E94BFFE7EE" Guid="*">
                 <File Id="filD520B25D9B5203EB617AAFA57FA22B79" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Core.dll" />
             </Component>
-            <Component Id="cmp9FB8194E271BC60E951BD079597A5728" Guid="*">
-                <File Id="filD003348C8F611A1322206B5E13941030" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Core.pdb" />
-            </Component>
             <Component Id="cmpCC9CFF228F4B07830033A8FB95850141" Guid="*">
                 <File Id="fil0C18CC8550C5FA10180266E5E5576A32" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.QuickstartsLibrary.dll" />
-            </Component>
-            <Component Id="cmpB433AE716492CCF6236109A1AC8DBE3A" Guid="*">
-                <File Id="filC3D9BA4116DEB719220D027F6AFB5905" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.QuickstartsLibrary.pdb" />
             </Component>
             <Component Id="cmp97A64BECF773F620B6E3E74F9750324B" Guid="*">
                 <File Id="fil793E2CDB5D78EF563BBE48FB0A2FD505" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Server.dll" />
             </Component>
-            <Component Id="cmpC243BC445BE587E80DB14D7CA204C0F0" Guid="*">
-                <File Id="filB255BFAFB6A29F3D95A7B50464C0C15A" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Server.pdb" />
-            </Component>
             <Component Id="cmpC040AB09E53AD4A3BA405A44D05EF292" Guid="*">
                 <File Id="fil776F6BB78F4C3F5D9375CDB147ACD874" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.ServerControls.dll" />
-            </Component>
-            <Component Id="cmp45CF8F8492B026C3E4AF1D947A5FD38B" Guid="*">
-                <File Id="filF710785B71623CA790C4D72D6708DCBA" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.ServerControls.pdb" />
             </Component>
             <Component Id="cmp5BF82A49794EF8CA80B3603A0E77FC35" Guid="*">
                 <File Id="filAFD0CC30CB2E6DD52C314025EFBB3EF7" KeyPath="yes" Source="$(var.HarvestPath)\System.AppContext.dll" />
@@ -493,14 +454,9 @@
             <ComponentRef Id="cmpCF9B3A227754E55B2A4622BDADF51333" />
             <ComponentRef Id="cmp37F97E8A777E3CEBB4AC18F97A562CF1" />
             <ComponentRef Id="cmp4D3424098E909F5DFA609ECF27FF5CF8" />
-            <ComponentRef Id="cmpD75078CB58BA7D7318B1E54DC477F565" />
             <ComponentRef Id="cmpEC2A84ECC7514FBE0FC93D5D1A4E257B" />
-            <ComponentRef Id="cmpC27FDB5697B8F0566CE7F4077B9A48A1" />
             <ComponentRef Id="cmp261C4BE69BECC0B0BFD15503D8432605" />
-            <ComponentRef Id="cmp0A278DA8A2FA0AD6C0AD7366C63BC744" />
-            <ComponentRef Id="cmpC9B0261CB497D0066D8CF3A9F83E0B4F" />
             <ComponentRef Id="cmpDBB96FECFEC6C1D4B32B6745A860DF73" />
-            <ComponentRef Id="cmp32E8EC6DB32400BA022B224F2CCF205A" />
             <ComponentRef Id="cmp67D5062A3C2AEC75287E862887A3DF61" />
             <ComponentRef Id="cmp7B5419B82850339FEB9E327E88995AFE" />
             <ComponentRef Id="cmpDC75E3A1688E24065150A7A5008ADD5C" />
@@ -530,24 +486,16 @@
             <ComponentRef Id="cmpC089979D7EDD0520871FCF59E4512F6A" />
             <ComponentRef Id="cmp2D22C362F8F0B3B68D8A335DB9874738" />
             <ComponentRef Id="cmpBC4FC00A26E7D32479D42D3411317FC5" />
-            <ComponentRef Id="cmp22E746D6F416E29CB766C7D18764B4B9" />
             <ComponentRef Id="cmp125C379E185231EFADA4CB4301BD0A9E" />
             <ComponentRef Id="cmpE3A99B41788752444ABCB264E17E54A6" />
             <ComponentRef Id="cmp0181C62AF72C0D6FD32EB8AB33D80211" />
-            <ComponentRef Id="cmp0B6F20721DAFB372BF90A31C7CB2B136" />
             <ComponentRef Id="cmpF6B54E2EEC1B2D6E15B624C61BE55AB8" />
             <ComponentRef Id="cmpB88E322C77A9FBFD5741C083E3BAC4AB" />
-            <ComponentRef Id="cmp467AA6119661A4F5F4FC7197B5C03140" />
             <ComponentRef Id="cmp154D08527E5826E7E6C71811C22014E3" />
-            <ComponentRef Id="cmpF1DF0ED8DDE70DEFDAFF1686D7E23656" />
             <ComponentRef Id="cmp5B95664DA7C13ECEA76855E94BFFE7EE" />
-            <ComponentRef Id="cmp9FB8194E271BC60E951BD079597A5728" />
             <ComponentRef Id="cmpCC9CFF228F4B07830033A8FB95850141" />
-            <ComponentRef Id="cmpB433AE716492CCF6236109A1AC8DBE3A" />
             <ComponentRef Id="cmp97A64BECF773F620B6E3E74F9750324B" />
-            <ComponentRef Id="cmpC243BC445BE587E80DB14D7CA204C0F0" />
             <ComponentRef Id="cmpC040AB09E53AD4A3BA405A44D05EF292" />
-            <ComponentRef Id="cmp45CF8F8492B026C3E4AF1D947A5FD38B" />
             <ComponentRef Id="cmp5BF82A49794EF8CA80B3603A0E77FC35" />
             <ComponentRef Id="cmpA748C45814948C0E47F0962CF5A9E2C5" />
             <ComponentRef Id="cmp602E8F2B93FE6578A846F762EC68A1D9" />

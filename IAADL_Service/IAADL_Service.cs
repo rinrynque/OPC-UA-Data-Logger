@@ -21,8 +21,10 @@ namespace IAADL_Service
             InitializeComponent();
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoOptimization | System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         protected override void OnStart(string[] args)
         {
+                System.Diagnostics.Debugger.Launch();
             ApplicationInstance application = new ApplicationInstance();
             application.ApplicationType = ApplicationType.Client;
             application.ConfigSectionName = "IAA_DataLogger";
@@ -34,21 +36,16 @@ namespace IAADL_Service
                 if (File.Exists(installedConfigPath))
                 {
                     application.LoadApplicationConfiguration(installedConfigPath, false).Wait();
-                }
-                else
-                {
-                    application.LoadApplicationConfiguration(false).Wait();
-                }
-
-                // check the application certificate.
-                application.CheckApplicationInstanceCertificate(false, 0).Wait();
-                //application.ApplicationConfiguration = new ApplicationConfiguration();
-                m_configuration = application.ApplicationConfiguration;
-                var settingsConfigPath = Path.Combine(Environment.GetFolderPath(
-                    Environment.SpecialFolder.CommonApplicationData), @"IAADL\Service.Parameters.json");
-                if (File.Exists(settingsConfigPath))
-                {
-                    loadConfigFile(settingsConfigPath);
+                    // check the application certificate.
+                    application.CheckApplicationInstanceCertificate(false, 0).Wait();
+                    //application.ApplicationConfiguration = new ApplicationConfiguration();
+                    m_configuration = application.ApplicationConfiguration;
+                    var settingsConfigPath = Path.Combine(Environment.GetFolderPath(
+                        Environment.SpecialFolder.CommonApplicationData), @"IAADL\Service.Parameters.json");
+                    if (File.Exists(settingsConfigPath))
+                    {
+                        loadConfigFile(settingsConfigPath);
+                    }
                 }
             }
             catch (Exception e)

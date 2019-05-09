@@ -776,6 +776,38 @@ namespace IAADL_App
                 ClientUtils.HandleException(this.Text, exception);
             }
         }
+
+        private void saveThisAsServiceConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var settingsConfigPath = Path.Combine(Environment.GetFolderPath(
+                      Environment.SpecialFolder.CommonApplicationData), @"IAADL\Service.Parameters.json");
+                ConfigFile.SaveToFile(m_servers, settingsConfigPath);
+            }
+            catch (Exception exception)
+            {
+                ClientUtils.HandleException(this.Text, exception);
+            }
+        }
+
+        private void clearServiceConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                    var settingsConfigPath = Path.Combine(Environment.GetFolderPath(
+                        Environment.SpecialFolder.CommonApplicationData), @"IAADL\Service.Parameters.json");
+                if (File.Exists(settingsConfigPath))
+                {
+                    // If file found, delete it    
+                    File.Delete(settingsConfigPath);
+                }
+            }
+            catch (Exception exception)
+            {
+                ClientUtils.HandleException(this.Text, exception);
+            }
+        }
     }
 
     #endregion
