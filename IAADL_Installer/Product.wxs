@@ -59,7 +59,7 @@
               DisplayName="IAADL Service"
               Description="Logging of monitored OPC Data"
               Start="demand"
-              Account="NT AUTHORITY\LocalService"
+              Account="LocalSystem"
               ErrorControl="normal"
               />
             <ServiceControl Id="IAADL_Service" Name="IAADL_Service" Remove="uninstall" Stop="uninstall" Wait="yes" />
@@ -70,7 +70,6 @@
           <File Id='FileID_IAADL_Service_Config_xml' Name='Service.Config.xml' DiskId='1' Source="..\IAADL_App\IAA_DataLogger.Config.xml"  KeyPath='yes' Vital='yes'/>
           <File Id='FileID_IAADL_App_Config_xml' Name='App.Config.xml' DiskId='1' Source="..\IAADL_App\IAA_DataLogger.Config.xml"  Vital='yes' />
         </Component>
-      </ComponentGroup>
-      
+      </ComponentGroup>      
     </Fragment>
 </Wix>

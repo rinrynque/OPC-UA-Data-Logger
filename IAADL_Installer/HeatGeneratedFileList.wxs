@@ -26,9 +26,6 @@
             <Component Id="cmp67D5062A3C2AEC75287E862887A3DF61" Guid="*">
                 <File Id="fil7F4F11FD8F2C727B2E0188C5B254557D" KeyPath="yes" Source="$(var.HarvestPath)\IAA_DataLogger.Config.xml" />
             </Component>
-            <Component Id="cmp7B5419B82850339FEB9E327E88995AFE" Guid="*">
-                <File Id="fil7FAEB0F78B4F93394B1A1028ECCA2F95" KeyPath="yes" Source="$(var.HarvestPath)\label_icon.png" />
-            </Component>
             <Component Id="cmpDC75E3A1688E24065150A7A5008ADD5C" Guid="*">
                 <File Id="fil327545046E24E1A2986C2FF1891047B9" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.AspNetCore.Hosting.Abstractions.dll" />
             </Component>
@@ -112,9 +109,6 @@
             </Component>
             <Component Id="cmp125C379E185231EFADA4CB4301BD0A9E" Guid="*">
                 <File Id="fil3A2F44A7730E98D18E0948B3261DFABD" KeyPath="yes" Source="$(var.HarvestPath)\Newtonsoft.Json.xml" />
-            </Component>
-            <Component Id="cmpE3A99B41788752444ABCB264E17E54A6" Guid="*">
-                <File Id="fil187A432456EBFD86ACB9C22D16A10BE8" KeyPath="yes" Source="$(var.HarvestPath)\no-image-dots.png" />
             </Component>
             <Component Id="cmp0181C62AF72C0D6FD32EB8AB33D80211" Guid="*">
                 <File Id="fil939F41040FF2C20FF605C5AE5066BFC8" KeyPath="yes" Source="$(var.HarvestPath)\Opc.Ua.Client.dll" />
@@ -458,7 +452,6 @@
             <ComponentRef Id="cmp261C4BE69BECC0B0BFD15503D8432605" />
             <ComponentRef Id="cmpDBB96FECFEC6C1D4B32B6745A860DF73" />
             <ComponentRef Id="cmp67D5062A3C2AEC75287E862887A3DF61" />
-            <ComponentRef Id="cmp7B5419B82850339FEB9E327E88995AFE" />
             <ComponentRef Id="cmpDC75E3A1688E24065150A7A5008ADD5C" />
             <ComponentRef Id="cmp9CA7D6B0CACE029FA1592C6140DC31B4" />
             <ComponentRef Id="cmp814280B7D7CD9EBEEB44E2B6B4ED6311" />
@@ -487,7 +480,6 @@
             <ComponentRef Id="cmp2D22C362F8F0B3B68D8A335DB9874738" />
             <ComponentRef Id="cmpBC4FC00A26E7D32479D42D3411317FC5" />
             <ComponentRef Id="cmp125C379E185231EFADA4CB4301BD0A9E" />
-            <ComponentRef Id="cmpE3A99B41788752444ABCB264E17E54A6" />
             <ComponentRef Id="cmp0181C62AF72C0D6FD32EB8AB33D80211" />
             <ComponentRef Id="cmpF6B54E2EEC1B2D6E15B624C61BE55AB8" />
             <ComponentRef Id="cmpB88E322C77A9FBFD5741C083E3BAC4AB" />

@@ -18,12 +18,13 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
-  <PropertyGroup>    
-  <DefineConstants>HarvestPath=..\IAADL_App\bin\Release</DefineConstants>
-    </PropertyGroup>  
+  <PropertyGroup>
+    <DefineConstants>HarvestPath=..\IAADL_App\bin\Release</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
-    <Compile Include="HeatGeneratedFileList.wxs" /> <!-- This is the Heat created one -->
+    <Compile Include="HeatGeneratedFileList.wxs" />
+    <!-- This is the Heat created one -->
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
@@ -31,17 +32,7 @@
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
   <Target Name="BeforeBuild">
-  <HeatDirectory Directory="..\IAADL_App\bin\Release" 
-    PreprocessorVariable="var.HarvestPath" 
-    OutputFile="HeatGeneratedFileList.wxs" 
-    ComponentGroupName="HeatGenerated" 
-    DirectoryRefId="INSTALLFOLDER" 
-    AutogenerateGuids="true" 
-    ToolPath="$(WixToolPath)" 
-    SuppressFragments="true" 
-    SuppressRegistry="true" 
-    SuppressRootDirectory="true"
-	Transforms="WixIgnoreTransform.xslt" />
+    <HeatDirectory Directory="..\IAADL_App\bin\Release" PreprocessorVariable="var.HarvestPath" OutputFile="HeatGeneratedFileList.wxs" ComponentGroupName="HeatGenerated" DirectoryRefId="INSTALLFOLDER" AutogenerateGuids="true" ToolPath="$(WixToolPath)" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" Transforms="WixIgnoreTransform.xslt" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

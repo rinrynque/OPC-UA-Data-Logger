@@ -23,12 +23,8 @@ namespace IAADL_App.Forms
             InitializeComponent();
             imageList1 = new ImageList();
 
-            System.Drawing.Image no_icon =
-               Image.FromFile(@"no-image-dots.png");
-            imageList1.Images.Add("no_icon", no_icon);
-            System.Drawing.Image icon_label =
-               Image.FromFile(@"label_icon.png");
-            imageList1.Images.Add("label_icon", icon_label);
+            imageList1.Images.Add("no_icon", Properties.Resources.no_image_dots);
+            imageList1.Images.Add("label_icon", Properties.Resources.label_icon);
             BrowseNodesTV.ImageList = imageList1;
             BrowseNodesTV.ImageList = imageList1;
         }
