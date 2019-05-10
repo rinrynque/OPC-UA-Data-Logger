@@ -2,9 +2,6 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLFOLDER">
-            <Component Id="cmp48F0AF424BDDB2FFB621F38055B0C5D0" Guid="*">
-                <File Id="filE4BD35CEDDA5F23D9902140B33EF546D" KeyPath="yes" Source="$(var.HarvestPath)\App.ico" />
-            </Component>
             <Component Id="cmpCF9B3A227754E55B2A4622BDADF51333" Guid="*">
                 <File Id="fil244CDAED28510644E512EA1DBCB9390F" KeyPath="yes" Source="$(var.HarvestPath)\BouncyCastle.Crypto.dll" />
             </Component>
@@ -440,11 +437,15 @@
             <Component Id="cmp74AD17100EF04DA9E0B6DB1AFA6D8D5C" Guid="*">
                 <File Id="filB19DBCF818AC2F26DEA82AF27E664FD3" KeyPath="yes" Source="$(var.HarvestPath)\System.Xml.XPath.XDocument.dll" />
             </Component>
+            <Directory Id="dirCF01D5040FD9778C6964A1321276CBAE" Name="Logs">
+                <Component Id="cmp6A5C8262E736C28544B54843589DEE24" Guid="*">
+                    <File Id="fil9823901BAC4A0F89344A8EA725ADE0C0" KeyPath="yes" Source="$(var.HarvestPath)\Logs\IAA_DataLogger.log.txt" />
+                </Component>
+            </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="HeatGenerated">
-            <ComponentRef Id="cmp48F0AF424BDDB2FFB621F38055B0C5D0" />
             <ComponentRef Id="cmpCF9B3A227754E55B2A4622BDADF51333" />
             <ComponentRef Id="cmp37F97E8A777E3CEBB4AC18F97A562CF1" />
             <ComponentRef Id="cmp4D3424098E909F5DFA609ECF27FF5CF8" />
@@ -590,6 +591,7 @@
             <ComponentRef Id="cmp57336CA638C7E423596479419F1908F1" />
             <ComponentRef Id="cmp8B647EE9E403FBA68E5A3BA65BF324DF" />
             <ComponentRef Id="cmp74AD17100EF04DA9E0B6DB1AFA6D8D5C" />
+            <ComponentRef Id="cmp6A5C8262E736C28544B54843589DEE24" />
         </ComponentGroup>
     </Fragment>
 </Wix>

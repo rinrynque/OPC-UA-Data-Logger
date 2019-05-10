@@ -57,7 +57,6 @@ namespace IAADL_App
         private MainForm()
         {
             InitializeComponent();
-            this.Icon = ClientUtils.GetAppIcon();
         }
 
         /// <summary>
@@ -67,7 +66,6 @@ namespace IAADL_App
         public MainForm(ApplicationConfiguration configuration)
         {
             InitializeComponent();
-            this.Icon = ClientUtils.GetAppIcon();
 
             m_configuration = configuration;
             this.Text = m_configuration.ApplicationName;

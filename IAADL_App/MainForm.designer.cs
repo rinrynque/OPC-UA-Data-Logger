@@ -59,7 +59,7 @@ namespace IAADL_App
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Serveurs");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Serveurs");
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +68,9 @@ namespace IAADL_App
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useSettingsForServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveThisAsServiceConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearServiceConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,9 +94,6 @@ namespace IAADL_App
             this.newToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.useSettingsForServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveThisAsServiceConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearServiceConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.actionTS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -141,45 +141,68 @@ namespace IAADL_App
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newConfigFile);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.loadConfigFile);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(111, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveConfigFile);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // useSettingsForServiceToolStripMenuItem
+            // 
+            this.useSettingsForServiceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveThisAsServiceConfigurationToolStripMenuItem,
+            this.clearServiceConfigurationToolStripMenuItem});
+            this.useSettingsForServiceToolStripMenuItem.Name = "useSettingsForServiceToolStripMenuItem";
+            this.useSettingsForServiceToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.useSettingsForServiceToolStripMenuItem.Text = "Service";
+            // 
+            // saveThisAsServiceConfigurationToolStripMenuItem
+            // 
+            this.saveThisAsServiceConfigurationToolStripMenuItem.Name = "saveThisAsServiceConfigurationToolStripMenuItem";
+            this.saveThisAsServiceConfigurationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.saveThisAsServiceConfigurationToolStripMenuItem.Text = "Save this configuration as service settings";
+            this.saveThisAsServiceConfigurationToolStripMenuItem.Click += new System.EventHandler(this.saveThisAsServiceConfigurationToolStripMenuItem_Click);
+            // 
+            // clearServiceConfigurationToolStripMenuItem
+            // 
+            this.clearServiceConfigurationToolStripMenuItem.Name = "clearServiceConfigurationToolStripMenuItem";
+            this.clearServiceConfigurationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.clearServiceConfigurationToolStripMenuItem.Text = "Clear service configuration";
+            this.clearServiceConfigurationToolStripMenuItem.Click += new System.EventHandler(this.clearServiceConfigurationToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(111, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -354,10 +377,10 @@ namespace IAADL_App
             this.itemsTV.Location = new System.Drawing.Point(0, 0);
             this.itemsTV.Margin = new System.Windows.Forms.Padding(2);
             this.itemsTV.Name = "itemsTV";
-            treeNode2.Name = "RootNode";
-            treeNode2.Text = "Serveurs";
+            treeNode1.Name = "RootNode";
+            treeNode1.Text = "Serveurs";
             this.itemsTV.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.itemsTV.Size = new System.Drawing.Size(435, 473);
             this.itemsTV.TabIndex = 0;
             this.itemsTV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.itemsTV_AfterSelect);
@@ -394,29 +417,6 @@ namespace IAADL_App
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // useSettingsForServiceToolStripMenuItem
-            // 
-            this.useSettingsForServiceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveThisAsServiceConfigurationToolStripMenuItem,
-            this.clearServiceConfigurationToolStripMenuItem});
-            this.useSettingsForServiceToolStripMenuItem.Name = "useSettingsForServiceToolStripMenuItem";
-            this.useSettingsForServiceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.useSettingsForServiceToolStripMenuItem.Text = "Service";
-            // 
-            // saveThisAsServiceConfigurationToolStripMenuItem
-            // 
-            this.saveThisAsServiceConfigurationToolStripMenuItem.Name = "saveThisAsServiceConfigurationToolStripMenuItem";
-            this.saveThisAsServiceConfigurationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.saveThisAsServiceConfigurationToolStripMenuItem.Text = "Save this configuration as service settings";
-            this.saveThisAsServiceConfigurationToolStripMenuItem.Click += new System.EventHandler(this.saveThisAsServiceConfigurationToolStripMenuItem_Click);
-            // 
-            // clearServiceConfigurationToolStripMenuItem
-            // 
-            this.clearServiceConfigurationToolStripMenuItem.Name = "clearServiceConfigurationToolStripMenuItem";
-            this.clearServiceConfigurationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.clearServiceConfigurationToolStripMenuItem.Text = "Clear service configuration";
-            this.clearServiceConfigurationToolStripMenuItem.Click += new System.EventHandler(this.clearServiceConfigurationToolStripMenuItem_Click);
             // 
             // MainForm
             // 
