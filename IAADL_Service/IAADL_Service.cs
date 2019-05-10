@@ -24,7 +24,6 @@ namespace IAADL_Service
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoOptimization | System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         protected override void OnStart(string[] args)
         {
-                System.Diagnostics.Debugger.Launch();
             ApplicationInstance application = new ApplicationInstance();
             application.ApplicationType = ApplicationType.Client;
             application.ConfigSectionName = "IAA_DataLogger";
